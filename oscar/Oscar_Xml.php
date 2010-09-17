@@ -155,7 +155,9 @@ class Oscar_Xml{
 				
 				$this->domInstance->load($fichierXML);
 				
-		}
+		}else{
+                    echo "Ooups ... the file does not exist !";
+                }
 	}
 	
 	
@@ -245,6 +247,9 @@ class Oscar_Xml{
 			
 			//récupére la racine du document
 			$this->loadRacine();
+
+                    //Si le document n'hexiste pas , la racine ne peut être trouvé
+                    if( $this->_Racine != null){
 			
 			$domNodeList	=	$this->_Racine->getElementsByTagName($elemName);
 						
@@ -267,6 +272,7 @@ class Oscar_Xml{
     			array_push($Tresults,array("value"=>$valNode,"attribut"=>$valAttribut));
 			
 			}
+                    }
 		}
 		
 		

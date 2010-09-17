@@ -1,0 +1,8 @@
+*.xml
+nbproject/
+*.csv
+*~
+.settings
+.buildpath
+.cache
+
