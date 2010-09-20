@@ -43,7 +43,7 @@ class MailHandler implements ierrorObserver{
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 
-        @mail($this->_to, self::SUBJECT.$this->_subject, $msg->getError(), $headers);
+        @mail($this->_to, self::SUBJECT.$this->_subject, $msg->getError()."<br><br> URL : ".$_SERVER['REQUEST_URI'], $headers);
 
     }
 
