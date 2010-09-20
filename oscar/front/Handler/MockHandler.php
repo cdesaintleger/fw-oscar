@@ -1,7 +1,7 @@
 <?php
 require_once 'oscar/front/Handler/ierrorObserver.php';
 
-class MokHandler implements ierrorObserver{
+class MockHandler implements ierrorObserver{
 
     private $_messages = array();
     

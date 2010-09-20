@@ -3,7 +3,7 @@
 require_once 'oscar/front/Handler/HtmlHandler.php';
 require_once 'oscar/front/Handler/MailHandler.php';
 require_once 'oscar/front/Handler/StdHandler.php';
-require_once 'oscar/front/Handler/MokHandler.php';
+require_once 'oscar/front/Handler/MockHandler.php';
 require_once 'oscar/front/Handler/ierrorObservable.php';
 
 /*
