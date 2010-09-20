@@ -1,6 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
-
 /*
  * Gestion des instanciations et executions de controller/action
  */
@@ -52,13 +50,12 @@ class Oscar_Front_Controller_Buffer{
 
             }else{
                 
-                throw new Oscar_Exception(" Destination du buffer inconnue , perte de données ");
+                throw new Exception("Destination du buffer inconnue , perte de données ",300);
             }
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
         
     }
@@ -83,13 +80,12 @@ class Oscar_Front_Controller_Buffer{
 
 
             }else{
-                throw new Oscar_Exception(" Emplacement de la memoire à afficher inconnue ! ");
+                throw new Exception("Emplacement de la memoire à afficher inconnue ! ",301);
             }
 
-        }catch(Oscar_Exception $e){
-            $e->getMessage();
         }catch(Exception $e){
-            $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
     }

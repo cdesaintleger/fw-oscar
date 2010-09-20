@@ -1,6 +1,4 @@
 <?php
-
-require_once 'Oscar_Exception.php';
 /*
  *
  *
@@ -38,7 +36,7 @@ class Oscar_Front_Controller_Directory{
 
 				}else{
 
-					throw new Oscar_Exception("Le chemin $path n'est pas valide ! ");
+					throw new Exception("Le chemin ".htmlentities($path)." n'est pas valide ! ",200);
 				}
 			}else{
 				foreach ( $path AS &$chemin ){
@@ -57,15 +55,14 @@ class Oscar_Front_Controller_Directory{
 
 					}else{
 
-						throw new Oscar_Exception("Le chemin $chemin n'est pas valide ! ");
+						throw new Exception("Le chemin ".htmlentities($chemin)." n'est pas valide ! ",201);
 					}
 				}
 			}
 
-		}catch(Oscar_Exception $e){
-                    echo $e->getMessage();
-                }catch(Exception $e){
-                    echo $e->getMessage();
+		}catch(Exception $e){
+                    Oscar_Exception::getInstance()
+                        ->error($e->getCode(),$e->getMessage(),null,null);
                 }
 
     }
@@ -93,20 +90,19 @@ class Oscar_Front_Controller_Directory{
 
                                 }
 			}else{
-                            throw new Oscar_Exception("\$path ne peut pas être un tableau! ");
+                            throw new Exception("\$path ne peut pas être un tableau! ",202);
                         }
 		}else{
-                    throw new Oscar_Exception("Le chemin $path n'est pas valide ! ");
+                    throw new Exception("Le chemin $path n'est pas valide ! ",203);
                 }
 
             }else{
-                throw new Oscar_Exception("pas de chemin donné ! ");
+                throw new Exception("pas de chemin donné ! ",204);
             }
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
     }
@@ -124,17 +120,16 @@ class Oscar_Front_Controller_Directory{
                             $this->controllersDirectory	=	array_diff( $this->controllersDirectory , array($path) );
                     }
                 }else{
-                    throw new Oscar_Exception("\$path ne peut pas être un tableau! ");
+                    throw new Exception("\$path ne peut pas être un tableau! ",205);
                 }
             }else{
-                throw new Oscar_Exception("pas de chemin donné ! ");
+                throw new Exception("pas de chemin donné ! ",206);
             }
 
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
         
 

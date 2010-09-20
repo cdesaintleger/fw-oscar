@@ -1,5 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
 /*
  *
  *
@@ -138,18 +137,17 @@ class Oscar_Front_Controller_Url{
 
 
                 }else{
-                    throw new Oscar_Exception("L'acces au controller de paramétres n'est pas valide ! ");
+                    throw new Exception("L'acces au controller de paramétres n'est pas valide ! ",800);
                 }
 
             }else{
-                throw new Oscar_Exception("L'url ne peut être vide ! ");
+                throw new Exception("L'url ne peut être vide ! ",801);
             }
 
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Excetpion $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
         

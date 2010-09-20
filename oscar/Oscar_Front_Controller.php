@@ -36,6 +36,7 @@
  * Oscar Controller Interface
  */
 require_once 'front/Controller_Interface.php';
+require_once 'front/Oscar_Exception.php';
 
 
 /**
@@ -171,6 +172,14 @@ class Oscar_Front_Controller implements Controller_Interface{
             define( 'OSCAR_ORM_RES_BOTH', PDO::FETCH_BOTH );
             define( 'OSCAR_ORM_RES_OBJ', PDO::FETCH_OBJ );
             define( 'OSCAR_ORM_RES_LAZY', PDO::FETCH_LAZY );
+
+
+            /*
+             * Gestion par defaut des exceptions en standard
+             *
+             */
+            Oscar_Exception::getInstance()
+                ->attach(Oscar_Exception::factory('Std'));
         }
 
         return self::$_instance;
@@ -636,7 +645,7 @@ class Oscar_Front_Controller implements Controller_Interface{
             if(is_array($destination)){
 
                 if(count($destination)<2){
-                        throw new Oscar_Exception("Erreur : les paramétres de la méthode _forward doivent être au minimum de deux ! ");
+                        throw new Exception("les paramétres de la méthode _forward doivent être au minimum de deux ! ",001);
                 }else{
 
                     self::$_Tcycle["controller"]	=	$destination[0];
@@ -661,15 +670,18 @@ class Oscar_Front_Controller implements Controller_Interface{
 
 
             }else{
-                    throw new Oscar_Exception("Erreur : Le methode _forward a besoin d'un tableau en paramétre ! ");
+                    throw new Exception("Le methode _forward a besoin d'un tableau en paramétre ! ",002);
             }
 
 
 
-        }catch (Oscar_Exception $e){
+        }catch (Exception $e){
 
             $this->get_instance_controller_proc()->stopCycle();
-            echo $e->getMessage();
+
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
+
         }
         
 
@@ -858,7 +870,7 @@ class Oscar_Front_Controller implements Controller_Interface{
             if( !empty(self::$_log_destination) ){
                 $dest   =   self::$_log_destination;
             }else{
-                throw new Oscar_Exception("Erreur : une destination doit être définie pour ce systéme de log ! ");
+                throw new Exception("Une destination doit être définie pour ce systéme de log ! ",003);
             }
         }
         if( !empty($msg)){
@@ -870,7 +882,7 @@ class Oscar_Front_Controller implements Controller_Interface{
             $ret    =   error_log  ( htmlspecialchars($msg).PHP_EOL, $type  , $dest, $headers);
 
             if(!$ret){
-                throw new Oscar_Exception("Erreur : un probléme est survenu à l'ecriture des logs ! ");
+                throw new Exception("Erreur : un probléme est survenu à l'ecriture des logs ! ",004);
             }
         }
 

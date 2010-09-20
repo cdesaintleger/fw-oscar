@@ -1,6 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
-
 require_once 'Smarty/Smarty.class.php';
 require_once 'oscar/Smarty_Factory.php';
 /*
@@ -71,10 +69,10 @@ class Oscar_Front_Controller_Layout{
                         if(!empty($params['template'])){
                                 self::$template	=	$params['template'];
                         }else{
-                                throw new Oscar_Exception("Erreur : Un template doit être definie et lisible !");
+                                throw new Exception("Un template doit être definie et lisible !",400);
                         }
                         if( !is_readable($smarty->template_dir.self::$template )){
-                                throw new Exception("Erreur : Un template doit être definie et lisible !");
+                                throw new Exception("Un template doit être definie et lisible !",401);
                         }
                         //Liaison des nom->val
                         if(is_array($params['binding']) && !empty($params['binding'])){
@@ -104,17 +102,16 @@ class Oscar_Front_Controller_Layout{
                         
 
                 }else{
-                        throw new Exception("Erreur : Set_Layout à besoin d'un tableau en paramétre !");
+                        throw new Exception("Set_Layout à besoin d'un tableau en paramétre !",402);
                 }
 
             }else{
-                throw new Oscar_Exception("Pas de controller de processus !");
+                throw new Exception("Pas de controller de processus !",403);
             }
 
-        }catch (Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
     }

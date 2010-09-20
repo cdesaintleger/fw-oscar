@@ -1,6 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
-
 /*
  * Gestion des services d'oscar
  */
@@ -36,13 +34,12 @@ class Oscar_Front_Controller_Params{
                         }
 
                 }elseif(!$silent){
-                    throw new Oscar_Exception('Erreur: paramétre manquant $name fonction set_asArray_param !');
+                    throw new Exception('Paramétre manquant $name fonction set_asArray_param !',500);
                 }
 
-        }catch (Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
     }
@@ -78,13 +75,12 @@ class Oscar_Front_Controller_Params{
 
                         
                 }elseif(!$silent){
-                    throw new Oscar_Exception('Erreur: paramétre manquant $name fonction set_param !');
+                    throw new Exception('Paramétre manquant $name fonction set_param !',501);
                 }
                 
-            }catch (Oscar_Exception $e){
-                echo $e->getMessage();
             }catch(Exception $e){
-                echo $e->getMessage();
+                Oscar_Exception::getInstance()
+                    ->error($e->getCode(),$e->getMessage(),null,null);
             }
     }
 
@@ -100,15 +96,14 @@ class Oscar_Front_Controller_Params{
                 if(  $this->isRegistered($name) ){
                         return self::$_Tparams[$name];
                 }elseif(!$silent){
-                        throw new Exception('Erreur: demande d\'acces à une variable qui n\'héxiste pas ! => '.htmlentities($name,ENT_QUOTES,"UTF-8").'<br>');
+                        throw new Exception('Demande d\'acces à une variable qui n\'héxiste pas ! => '.htmlentities($name,ENT_QUOTES,"UTF-8").'<br>',502);
                 }	
             }else{
-                throw new Exception('demande d\'acces vide !');
+                throw new Exception('Demande d\'acces vide !',503);
             }
-        }catch(Oscar_Exception$e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
     }
@@ -126,12 +121,11 @@ class Oscar_Front_Controller_Params{
                         unset(self::$_Tparams[htmlentities($name,ENT_QUOTES,"UTF-8")]);
                 }
             }else{
-                throw new Exception('Suppression d\'une data qui n\'existe pas !');
+                throw new Exception('Suppression d\'une data qui n\'existe pas !',504);
             }
-        }catch(Oscar_Exception$e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
         
     }
@@ -155,13 +149,12 @@ class Oscar_Front_Controller_Params{
                 }
 
             }else{
-                throw new Exception('demande d\'acces vide !');
+                throw new Exception('Demande d\'acces vide !',505);
             }
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
         return $reponse;

@@ -1,6 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
-
 /*
  * Gestion des services d'oscar
  */
@@ -18,12 +16,11 @@ class Oscar_Front_Controller_Services{
                 if(is_array($service) && !empty($service) ){
                         array_push(self::$_Oscar_services, $service);
                 }else{
-                    throw new Oscar_Exception('$service doit être un tableau non vide !');
+                    throw new Exception('$service doit être un tableau non vide !',700);
                 }
             }catch(Oscar_Exception $e){
-                echo $e->getMessage();
-            }catch(Oscar_Exception $e){
-                echo $e->getMessage();
+                Oscar_Exception::getInstance()
+                    ->error($e->getCode(),$e->getMessage(),null,null);
             }
 
     }

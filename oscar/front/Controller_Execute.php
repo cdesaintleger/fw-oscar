@@ -1,6 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
-
 /*
  * Gestion des instanciations et executions de controller/action
  */
@@ -85,7 +83,8 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                     //Changement de l'etat du cycle
                     $controller_proc->stopCycle();
                     
-                    throw new Oscar_Exception("Erreur : Le controller ".htmlentities($controllerName)." , n'a pas été trouvé ! ");
+                    throw new Exception("Le controller ".htmlentities($controllerName)." , n'a pas été trouvé ! ",100);
+                    
             }else{
 
                 if(class_exists($controllerName)){
@@ -101,7 +100,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                     $this->_instance_controller  =   new $controllerName();
 
                 }else{
-                    throw new Oscar_Exception("Le nom de la classe $controllerName n'existe pas dans le fichier controller demandé ");
+                    throw new Exception("Le nom de la classe ".htmlentities($controllerName)." n'existe pas dans le fichier controller demandé ",101);
                 }
 
 
@@ -109,10 +108,11 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
 
                                 
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            //echo $e->getMessage();
+
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
         //retourne l'instance du controller
@@ -190,7 +190,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
 
                             }elseif( !$controller_proc->skipToActivated() ){
 
-                                    throw new Oscar_Exception("Erreur : L'action demandée n'est pas disponible ! ");
+                                    throw new Exception("L'action demandée n'est pas disponible ! ",102);
 
                             }
 
@@ -220,29 +220,31 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
 
 
                         }else{
-                            throw new Oscar_Exception("Ressource Proc non valide");
+                            throw new Exception("Ressource Proc non valide",103);
                         }
 
                     }else{
-                        throw new Oscar_Exception("Ressource Buffer non valide");
+                        throw new Exception("Ressource Buffer non valide",104);
                     }
 
                 }else{
-                    throw new Oscar_Exception("Aucune action recue !");
+                    throw new Exception("Aucune action recue !",105);
                 }
 
         }else{
-            throw new Oscar_Exception("Controller non valide !");
+            throw new Exception("Controller non valide !",106);
         }
 
 
 
 
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            //echo $e->getMessage();
+
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
+
         }
 
 
@@ -278,32 +280,31 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
 
                             }else{
 
-                                    throw new Oscar_Exception("Erreur : L'action demandée n'est pas disponible ! ");
+                                    throw new Exception("L'action demandée n'est pas disponible ! ",107);
                             }
 
                             //supprime l'instance , le controller étant maintenant inutile
                             unset($this->_instance_controller);
 
                         }else{
-                            throw new Oscar_Exception("Ressource Proc non valide");
+                            throw new Exception("Ressource Proc non valide",108);
                         }
 
                 }else{
-                    throw new Oscar_Exception("Aucune action recue !");
+                    throw new Exception("Aucune action recue !",109);
                 }
 
         }else{
-            throw new Oscar_Exception("Controller non valide !");
+            throw new Exception("Controller non valide !",110);
         }
 
 
 
 
 
-        }catch(Oscar_Exception $e){
-            echo $e->getMessage();
         }catch(Exception $e){
-            echo $e->getMessage();
+            Oscar_Exception::getInstance()
+                ->error($e->getCode(),$e->getMessage(),null,null);
         }
 
     }

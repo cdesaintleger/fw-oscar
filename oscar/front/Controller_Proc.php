@@ -1,6 +1,4 @@
 <?php
-require_once 'Oscar_Exception.php';
-
 /*
  * Gestion des "process" flag des executions de services
  * actions et vues
@@ -185,7 +183,7 @@ class Oscar_Front_Controller_Proc{
             if( in_array($zone, self::$_TdisplayZone) ){
                 self::$_TdisplayZone[$zone] =   FALSE;
             }else{
-                throw new Oscar_Exception("Changement d'etat d'un affichage qui n'existe pas !");
+                throw new Exception("Changement d'etat d'un affichage qui n'existe pas !",600);
             }
 
         }
@@ -199,7 +197,7 @@ class Oscar_Front_Controller_Proc{
             if( in_array($zone, self::$_TdisplayZone) ){
                 self::$_TdisplayZone[$zone] =   TRUE;
             }else{
-                throw new Oscar_Exception("Changement d'etat d'un affichage qui n'existe pas !");
+                throw new Exception("Changement d'etat d'un affichage qui n'existe pas !",601);
             }
 
         }
