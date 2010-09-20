@@ -40,7 +40,10 @@ class MailHandler implements ierrorObserver{
      */
     public function update( ierrorObservable $msg ){
 
-        @mail($this->_to, self::SUBJECT.$this->_subject, $msg->getError());
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+
+        @mail($this->_to, self::SUBJECT.$this->_subject, $msg->getError(), $headers);
 
     }
 
