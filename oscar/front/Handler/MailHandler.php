@@ -6,7 +6,8 @@ class MailHandler implements ierrorObserver{
 
     protected static $_instance;
     private $_to;
-    const SUBJECT = 'erreur signalée';
+    private $_subject;
+    const SUBJECT = 'erreur signalée - ';
 
     /*
      * Pattern singleton
@@ -24,9 +25,10 @@ class MailHandler implements ierrorObserver{
 
 
 
-    public function __construct($to)
+    public function __construct($args)
     {
-        $this->_to = (string)$to[0];
+        $this->_to = (string)$args[0];
+        $this->_subject = (string)$args[1];
         if(filter_var($this->_to,FILTER_VALIDATE_EMAIL) === false) {
             throw new DomainException('Adresse email non conforme');
         }
@@ -38,7 +40,7 @@ class MailHandler implements ierrorObserver{
      */
     public function update( ierrorObservable $msg ){
 
-        @mail($this->_to, self::SUBJECT, $msg->getError());
+        @mail($this->_to, self::SUBJECT.$this->_subject, $msg->getError());
 
     }
 

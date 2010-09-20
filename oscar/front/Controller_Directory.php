@@ -36,7 +36,7 @@ class Oscar_Front_Controller_Directory{
 
 				}else{
 
-					throw new Exception("Le chemin ".htmlentities($path)." n'est pas valide ! ",200);
+					throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - Le chemin ".htmlentities($path)." n'est pas valide ! ",200);
 				}
 			}else{
 				foreach ( $path AS &$chemin ){
@@ -55,7 +55,7 @@ class Oscar_Front_Controller_Directory{
 
 					}else{
 
-						throw new Exception("Le chemin ".htmlentities($chemin)." n'est pas valide ! ",201);
+						throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - Le chemin ".htmlentities($chemin)." n'est pas valide ! ",201);
 					}
 				}
 			}

@@ -83,7 +83,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                     //Changement de l'etat du cycle
                     $controller_proc->stopCycle();
                     
-                    throw new Exception("Le controller ".htmlentities($controllerName)." , n'a pas été trouvé ! ",100);
+                    throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." -  Le controller ".htmlentities($controllerName)." , n'a pas été trouvé ! ",100);
                     
             }else{
 
@@ -100,7 +100,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                     $this->_instance_controller  =   new $controllerName();
 
                 }else{
-                    throw new Exception("Le nom de la classe ".htmlentities($controllerName)." n'existe pas dans le fichier controller demandé ",101);
+                    throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - Le nom de la classe ".htmlentities($controllerName)." n'existe pas dans le fichier controller demandé ",101);
                 }
 
 
@@ -190,7 +190,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
 
                             }elseif( !$controller_proc->skipToActivated() ){
 
-                                    throw new Exception("L'action demandée n'est pas disponible ! ",102);
+                                    throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - L'action demandée - " .htmlentities($action_name). " - n'est pas disponible ! ",102);
 
                             }
 
@@ -232,7 +232,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                 }
 
         }else{
-            throw new Exception("Controller non valide !",106);
+            throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - Controller non valide !",106);
         }
 
 
@@ -280,7 +280,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
 
                             }else{
 
-                                    throw new Exception("L'action demandée n'est pas disponible ! ",107);
+                                    throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - L'action demandée - " .htmlentities($action_name). " - n'est pas disponible ! ",107);
                             }
 
                             //supprime l'instance , le controller étant maintenant inutile
@@ -295,7 +295,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                 }
 
         }else{
-            throw new Exception("Controller non valide !",110);
+            throw new Exception("Client : ".$_SERVER['REMOTE_ADDR']." - Controller non valide !",110);
         }
 
 
