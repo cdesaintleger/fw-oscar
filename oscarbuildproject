@@ -1,0 +1,124 @@
+#!/usr/local/bin/php
+<?php
+
+/* Build Project Oscar 
+*    Version 1.0
+*  De saint leger Christophe
+*/
+$updated	=	0;
+
+//Vérifie le nombre minimum d'arguments
+if($argc>1){	
+	
+	$nomAppli	=	$argv[1];
+	
+	//Création de l'application 
+	if(!file_exists($nomAppli)){
+		
+		$updated	=	1;
+		
+		echo "CREATION DES REPERTOIRES\n";
+		
+		mkdir($nomAppli."/application",0700,TRUE);
+		//Public
+		mkdir($nomAppli."/html/images",0700,TRUE);
+		mkdir($nomAppli."/html/scripts",0700,TRUE);
+                mkdir($nomAppli."/html/styles",0700,TRUE);
+		mkdir($nomAppli."/html/smarty/cache",0700,TRUE);
+		mkdir($nomAppli."/html/smarty/configs",0700,TRUE);
+                mkdir($nomAppli."/html/smarty/plugins",0700,TRUE);
+		mkdir($nomAppli."/html/smarty/templates",0700,TRUE);
+		mkdir($nomAppli."/html/smarty/templates_c",0700,TRUE);
+		mkdir($nomAppli."/html/smarty/style",0700,TRUE);
+		//Library 
+		mkdir($nomAppli."/library",0700,TRUE);
+	}
+	
+	//Création des modules
+	$TabModules     =       array_slice($argv,2);
+	
+	if(!empty($TabModules)){
+		
+		foreach($TabModules AS &$module){
+			
+			if(!file_exists($nomAppli."/application/$module")){
+				
+				$updated	=	1;
+				
+				echo "CREATION MODULE $module\n";
+				
+				mkdir($nomAppli."/application/$module/controllers",0700,TRUE);
+				mkdir($nomAppli."/application/$module/layouts",0700,TRUE);
+				mkdir($nomAppli."/application/$module/models",0700,TRUE);
+				mkdir($nomAppli."/application/$module/views",0700,TRUE);
+				mkdir($nomAppli."/application/$module/views/filters",0700,TRUE);
+				mkdir($nomAppli."/application/$module/views/helpers",0700,TRUE);
+				mkdir($nomAppli."/application/$module/views/scripts",0700,TRUE);
+			}
+			
+		}
+		
+	}
+	
+	if(!file_exists($nomAppli."/html/.htaccess")){
+		
+		$updated	=	1;
+	
+		echo "CREATION FICHIER .htaccess\n";
+		
+		//Création du .htaccess
+		$filename	=	".htaccess";
+		
+		if (!$handle = fopen($nomAppli."/html/$filename", 'w+')) {
+	         echo "Impossible d'ouvrir le fichier ($filename)";
+	         exit;
+	    }else{
+	    	
+	    	$somecontent	=	"
+	    	RewriteEngine on
+			RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+	    	";
+	    	
+		    // Ecrivons 
+		    if (fwrite($handle, $somecontent) === FALSE) {
+		        echo "Impossible d'écrire dans le fichier ($filename)";
+		        exit;
+		    }
+		    
+		    fclose($handle);
+	    }
+	}
+    
+    
+	if(!file_exists($nomAppli."/html/index.php")){
+		
+		$updated	=	1;
+	
+	    echo "CREATION FICHER index.php\n";
+	    
+	    
+	    //Création du fichier Index.php
+	    $filename	=	"index.php";
+	    
+		if (!$handle = fopen($nomAppli."/html/$filename", 'w+')) {
+	         echo "Impossible d'ouvrir le fichier ($filename)";
+	         exit;
+	    }else{
+			fclose($handle);
+	    }
+	}
+	
+	
+	if($updated){
+		echo "\nMise en place de votre projet $nomAppli terminé à 100%\n";	
+	}else{
+		echo "\nAucune modification au projet $nomAppli\n";
+	}
+	
+	
+}else{
+	
+	echo "Merci de spécifier au minimum le nom de l'application";
+	
+}
+?>
