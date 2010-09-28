@@ -11,6 +11,20 @@ class Oscar_Front_Controller_Params{
     private static $_zendRegistry   =   FALSE;
 
 
+    /*
+     * Permet d'utiliser les fonction isset et empty dans les controller
+     * avec les attributs des objets Oscar_front_controller
+     */
+    public function  __isset($name) {
+        
+        if (isset(self::$_Tparams[$name])) {
+            return (false === empty(self::$_Tparams[$name]));
+        } else {
+            return null;
+        }
+    }
+
+
     public function set_asArray_param( $name , $key , $value, $nosecure = FALSE ){
 
         try{

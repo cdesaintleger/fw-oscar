@@ -448,6 +448,20 @@ class Oscar_Front_Controller implements Controller_Interface{
         $this->get_instance_controller_params()->set_param( $name , $value, TRUE );
     }
 
+
+    /*
+     * Permet d'utiliser les fonction isset et empty dans les controller
+     * avec les attributs des objets Oscar_front_controller
+     */
+    public function __isset($key){
+        
+        if (isset($this->get_instance_controller_params()->$key)) {
+            return empty($this->get_instance_controller_params()->$key);
+        } else {
+            return null;
+        }
+    }
+
     public function asArray($name,$key,$value,$nosecure = FALSE ,$silent=TRUE){
         $this->get_instance_controller_params()->set_asArray_param( $name , $key , $value, TRUE );
     }
