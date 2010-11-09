@@ -51,7 +51,7 @@ class Oscar_Front_Controller_Url{
 
 			case 2:
 				if(!empty($T_url[1])){
-					self::$_url_controller	=	htmlentities(strip_tags($T_url[1]));
+					self::$_url_controller	= ucfirst(strtolower(htmlentities(strip_tags($T_url[1]))));
 				}
 
 			break;
@@ -59,7 +59,7 @@ class Oscar_Front_Controller_Url{
 			case 3:
 
 				if(!empty($T_url[1])){
-					self::$_url_controller	=	htmlentities(strip_tags($T_url[1]));
+					self::$_url_controller	=	ucfirst(strtolower(htmlentities(strip_tags($T_url[1]))));
 				}
 
 				if(!empty($T_url[2])){
@@ -71,7 +71,7 @@ class Oscar_Front_Controller_Url{
 			case ($nb_elements>3):
 
 				if(!empty($T_url[1])){
-					self::$_url_controller	=	htmlentities(strip_tags($T_url[1]));
+					self::$_url_controller	=	ucfirst(strtolower(htmlentities(strip_tags($T_url[1]))));
 				}
 				if(!empty($T_url[2])){
 					self::$_url_action		=	htmlentities(strip_tags($T_url[2]));
