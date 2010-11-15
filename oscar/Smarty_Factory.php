@@ -59,7 +59,8 @@ class Smarty_factory extends Smarty {
 		// Appelé automatiquement à l'instanciation de la classe.
 		
 		$this->Smarty();
-		
+        //parent::__construct();
+
 		$this->template_dir = 'smarty/templates/';
 		$this->compile_dir = 'smarty/templates_c/';
 		$this->config_dir = 'smarty/configs/';
