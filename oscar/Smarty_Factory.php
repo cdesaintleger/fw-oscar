@@ -58,7 +58,6 @@ class Smarty_factory extends Smarty {
 		// Constructeur de la classe.
 		// Appelé automatiquement à l'instanciation de la classe.
 		
-		//$this->Smarty();
         parent::__construct();
 
 		$this->template_dir = 'smarty/templates/';
@@ -121,6 +120,7 @@ class Smarty_factory extends Smarty {
 		
 		// Associons la fonction PHP stripslashes a un modificateur Smarty.
 		$this->register_modifier('ss', 'stripslashes');
+
 	}
 
         /*
