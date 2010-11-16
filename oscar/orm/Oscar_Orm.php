@@ -434,7 +434,12 @@ class Oscar_Orm {
 			
 		}
 		
-		return $red[0];
+        if( !empty($red) ){
+
+            return $red[0];
+        }else{
+            return null;
+        }
 		
 		unset($red);
 	}

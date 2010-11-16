@@ -372,8 +372,11 @@ class Oscar_Front_Controller implements Controller_Interface{
      */
     public static function _oscar_autoload( $className = null )
     {
-        if( $className != null ){
-            require_once $className.'.php';
+        //Compatibilité Smarty V3
+        $_class = strtolower($className);
+
+        if( $className != null && (substr($_class, 0, 16) != 'smarty_internal_' && $_class != 'smarty_security') ){
+            include_once $className.'.php';
         }
     }
 

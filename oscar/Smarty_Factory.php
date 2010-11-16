@@ -118,8 +118,11 @@ class Smarty_factory extends Smarty {
 	 */
 	private function modules_modifier(){
 		
-		// Associons la fonction PHP stripslashes a un modificateur Smarty.
-		$this->register_modifier('ss', 'stripslashes');
+		// Associons la fonction PHP stripslashes a un modificateur Smarty2.
+		//$this->register_modifier('ss', 'stripslashes');
+
+        //Smarty V3
+        $this->registerPlugin("modifier","ss", "stripslashes");
 
 	}
 
