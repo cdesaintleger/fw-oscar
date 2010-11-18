@@ -671,11 +671,14 @@ class Oscar_Front_Controller implements Controller_Interface{
 
                     if(count($destination) == 3)
                     {
-                        if(!is_null($destination[2]) && is_array($destination[2])){
+                        if(isset($destination[2])){
+
+                            if( is_array($destination[2])){
 
                                 foreach ( $destination[2] AS $key=>&$value ){
                                         $this->set_param( $key , $value );
                                 }
+                            }
 
                         }
                     }

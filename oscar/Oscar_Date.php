@@ -395,7 +395,7 @@ class Oscar_Date{
 			
 			switch ($this->_lang) {
 				case 'FR':
-					$month_txt	=	$T_month_FR[$month];
+					$month_txt	=	$T_month_FR[intval($month)];
 				break;
 				
 				case 'ENG':
@@ -403,7 +403,7 @@ class Oscar_Date{
 				break;
 				
 				default:
-					$month_txt	=	$T_month_FR[$month];
+					$month_txt	=	$T_month_FR[intval($month)];
 				break;
 			}
 			
