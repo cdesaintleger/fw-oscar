@@ -62,7 +62,7 @@ class Oscar_Request{
     private $_charset   =   "utf-8";
 
     //definition des types gérés
-    private $_Ttypes    =   array("POST","GET","HEAD");
+    private $_Ttypes    =   array("POST","GET","HEAD","PUT","DELETE");
 
     //definition du nvigateur simulé
     private $_userAgent =   "User-Agent : Mozilla/4.0 (compatible; MSIE 5.0; Windows 95)";
@@ -70,6 +70,8 @@ class Oscar_Request{
     //paramétres à passer
     private $_params    =   null;
 
+    //affichage ou non des ent�tes
+    private $_show_headers    =   TRUE;
 
 
 
@@ -85,6 +87,10 @@ class Oscar_Request{
         }
     }
 
+
+    public function show_headers( $show=TRUE ){
+        $this->_show_headers    =   $show;
+    }
 
     //definition du chemin
     public function set_path( $path ){
@@ -151,14 +157,14 @@ class Oscar_Request{
     /*
      * execution de la requete et retour soit directement à l'ecran , soit dans une variable
      */
-    public function execute(&$retour=null){
+    public function execute(&$retour=-1){
 
         //definition des entetes specifiques au type de requete
         switch( $this->_typeReq ){
 
             case 'HEAD':
                 
-                $out = "HEAD $this->_path HTTP/1.1\r\n";
+                $out = "HEAD $this->_path HTTP/1.0\r\n";
                 $out .= "Host: $this->_host\r\n";
                 $out .= "$this->_userAgent\r\n";
                 $out .= "Connection : Close\r\n\r\n";
@@ -167,7 +173,7 @@ class Oscar_Request{
 
             case 'GET':
 
-                $out = "GET $this->_path?$this->_params HTTP/1.1\r\n";
+                $out = "GET $this->_path?$this->_params HTTP/1.0\r\n";
                 $out .= "Host: $this->_host\r\n";
                 $out .= "Content-type: application/x-www-form-urlencoded\r\n";
                 $out .= "$this->_userAgent\r\n";
@@ -176,9 +182,11 @@ class Oscar_Request{
             break;
 
             case 'POST':
+            case 'PUT':
+            case 'DELETE':
 
 
-                $out = "POST $this->_path HTTP/1.1\r\n";
+                $out = "$this->_typeReq $this->_path HTTP/1.0\r\n";
                 $out .= "Host: $this->_host\r\n";
                 $out .= "Content-type: application/x-www-form-urlencoded\r\n";
                 $out .= "Content-length: ".strlen($this->_params)."\r\n";
@@ -200,7 +208,7 @@ class Oscar_Request{
 
         }else{
             
-            //connexion effectué envoie des entetes
+            //connexion effectu�e envoie des entetes
             fwrite($fp, $out);
 
              while (!feof($fp)) {
@@ -210,11 +218,37 @@ class Oscar_Request{
 
         }
 
+        //s�paration headers contenu
+        $return = @explode("\r\n\r\n",$result,2);
+
         //sortie
-        if($retour == null){
-            echo $result;
+        if($retour===-1){
+
+            //avec headers
+            if( $this->_show_headers == true ){
+                echo $return[0];
+            }
+
+            //contenu
+            if( count($return)>1 ){
+
+                echo $return[1];
+
+            }
+
         }else{
-            $retour = $result;
+
+            //avec headers
+            if( $this->_show_headers == true ){
+                $retour = $return[0];
+            }
+
+            //contenu
+            if( count($return)>1 ){
+
+                $retour .= $return[1];
+
+            }
         }
 
     }
