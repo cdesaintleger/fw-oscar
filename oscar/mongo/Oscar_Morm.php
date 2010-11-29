@@ -45,7 +45,7 @@
  * @package     Oscar_Morm
  * @subpackage
  */
-class Oscar_Morm {
+class Oscar_Morm extends MongoCollection{
 
     private static $_mongo_master;
 
@@ -54,7 +54,7 @@ class Oscar_Morm {
     private static $_cur_res;
 	
 	
-	public static function setInstance($value ){
+	public static function setDbInstance($value ){
 
         self::$_mongo_master	=	$value;
 		
@@ -65,7 +65,7 @@ class Oscar_Morm {
 	/*
 	 * Retourne l'instance de l'objet MORM
 	 */
-	public static function getInstance( ){
+	public static function getDbInstance( ){
             
         if(self::$_mongo_master!=null){
                 return self::$_mongo_master;
@@ -91,36 +91,7 @@ class Oscar_Morm {
 	public function __construct(){
 
         //monte la collection
-        if( empty( self::$_collection ) ){
-            self::$_collection  =   $this->getInstance()->{$this->_table};
-        }
-		
-	}
-	
-	
-	
-	
-	
-	/*
-	 * Assesseurs
-	 */
-	public function __get( $name ){
-		
-        switch ($name){
-
-            case 'result':
-
-                return self::$_cur_res;
-
-                break;
-
-            default :
-
-                return null;
-
-                break;
-
-        }
+        parent::__construct($this->getDbInstance(),$this->_table);
 		
 	}
 

@@ -83,7 +83,7 @@ class Oscar_dbm_manager extends Mongo {
         parent::__construct("mongodb://".implode(",",$lst_serv),$driver_options);
 
         //Retourne l'acces à la base
-        Oscar_Morm::setInstance( $this->$dsn[0]['database'] );
+        Oscar_Morm::setDbInstance( $this->$dsn[0]['database'] );
 
     }
 }
