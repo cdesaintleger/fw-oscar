@@ -150,8 +150,8 @@ class Oscar_samba {
             return $this->_execute($cmd);
 
         }else{
-            var_dump($err);
-            $this->_erreur  =   $err;
+            var_dump($dest);
+            $this->_erreur  =   $erreur;
             return false;
 
         }
