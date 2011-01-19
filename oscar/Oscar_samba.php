@@ -139,6 +139,7 @@ class Oscar_samba {
                 /* Déclaration d'erreur */
                 $err    =   TRUE;
             }
+            chmod($dest,0777);
 
         }
 
@@ -150,7 +151,6 @@ class Oscar_samba {
             return $this->_execute($cmd);
 
         }else{
-            var_dump($dest);
             $this->_erreur  =   $erreur;
             return false;
 
