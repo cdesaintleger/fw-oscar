@@ -146,7 +146,7 @@ class Oscar_samba {
         /* Si aucune erreur détecté on lance la commande */
         if( $err === FALSE ){
 
-            $cmd    =   "/usr/bin/smbmount ".$orig." ".$dest." ".$cmdopt.',dmask=000';
+            $cmd    =   "/usr/bin/smbmount ".$orig." ".$dest." ".$cmdopt.',dir_mode=0777,file_mode=0777';
             /* Execution du montage */
             return $this->_execute($cmd);
 
