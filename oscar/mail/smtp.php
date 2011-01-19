@@ -1,14 +1,16 @@
 <?php
-/**
-) o------------------------------------------------------------------------------o
-* | This is HTMLMimeMail5. It is dual licensed as GPL and a commercial license.  |
-* | If you use the code commercially (or if you don't want to be restricted by   |
-* | the GPL license), you will need the commercial license. It's only £49 (GBP - |
-* | roughly $98 depending on the exchange rate) and helps me out a lot. Thanks.  |
-* o------------------------------------------------------------------------------o
-*
-* © Copyright 2005 Richard Heyes
-*/
+    /**
+    * o------------------------------------------------------------------------------o
+    * | This package is licensed under the Phpguru license. A quick summary is       |
+    * | that for commercial use, there is a small one-time licensing fee to pay. For |
+    * | registered charities and educational institutes there is a reduced license   |
+    * | fee available. You can read more  at:                                        |
+    * |                                                                              |
+    * |                  http://www.phpguru.org/static/license.html                  |
+    * o------------------------------------------------------------------------------o
+    *
+    * © Copyright 2008,2009 Richard Heyes
+    */
 
 define('SMTP_STATUS_NOT_CONNECTED', 1, true);
 define('SMTP_STATUS_CONNECTED', 2, true);

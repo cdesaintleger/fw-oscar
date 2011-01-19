@@ -134,8 +134,8 @@ class Oscar_samba {
         if( !is_dir($dest) ){
 
             /* Tentative de cr√©ation du repertoire destination */
-            if( !mkdir($dest) ){
-                $erreur = "Impossible de cr√©er le R√©pertoire de destination ".PHP_EOL;
+            if( !mkdir($dest,0777,true) ){
+                $erreur = "Impossible de créer le Répertoire de destination ".PHP_EOL;
                 /* D√©claration d'erreur */
                 $err    =   TRUE;
             }
@@ -146,7 +146,6 @@ class Oscar_samba {
         if( $err === FALSE ){
 
             $cmd    =   "/usr/bin/smbmount ".$orig." ".$dest." ".$cmdopt;
-            
             /* Execution du montage */
             return $this->_execute($cmd);
 
@@ -161,7 +160,7 @@ class Oscar_samba {
 
 
 
-    /* D√©monte un r√©pertoire */
+    /* Démonte un répertoire */
     public function umount_dir( $point_montage ){
 
         $cmd    =   "smbumount ".escapeshellarg($point_montage);
