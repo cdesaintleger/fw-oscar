@@ -25,7 +25,17 @@ class StdHandler implements ierrorObserver{
      */
     public function update( ierrorObservable $msg ){
 
-        echo $msg->getError()."<br>";
+        $err    =   $msg->getError();
+
+        //Linéarise les erreurs sous forme de chaine
+        if(is_array($err) ){
+
+            $err    =   implode("<br/>",$err);
+
+        }
+		
+
+        echo $err."<br>";
         
     }
 

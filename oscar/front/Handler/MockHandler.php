@@ -25,7 +25,18 @@ class MockHandler implements ierrorObserver{
      */
     public function update( ierrorObservable $msg ){
 
-        $this->_messages[] = $msg->getError();
+        $err    =   $msg->getError();
+        //dépile les erreurs 
+        if(is_array($err) ){
+
+           foreach( $err as &$erreur ){
+               $this->_messages[] = $erreur;
+           }
+
+        }else{
+
+            $this->_messages[] = $err;
+        }
         
     }
 
