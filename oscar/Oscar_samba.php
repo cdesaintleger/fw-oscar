@@ -275,11 +275,11 @@ class Oscar_samba{
          * Vérifie le propriétaire du point de montage
          */
          $pwuid =   posix_getpwuid(fileowner($absolute_dir));
-         $myuid =   getmyuid();
-         $whoami    =   posix_getpwuid($myuid);
-         if( intval( $pwuid['uid'] ) != $myuid ){
+         $whoami    =   exec("whoami");
 
-            $this->_stdErr['object']    =   "Le point de montage doit appartenir à l'utilisateur courant : ".$whoami['name'];
+         if( $pwuid['name'] != $whoami ){
+
+            $this->_stdErr['object']    =   "Le point de montage doit appartenir à l'utilisateur courant : ".$whoami;
             return FALSE;
 
          }
