@@ -127,7 +127,7 @@ class Oscar_samba{
 
             //La commande finale devient
             $cmd    =   "/usr/bin/smbmount ".$this->_share." ".$this->_pmount." ".$options;
-var_dump($cmd);
+
             try{
                 //Execution de la commande de montage
                 if( !$this->_shell_execute($cmd) ){
