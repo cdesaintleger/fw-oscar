@@ -256,6 +256,8 @@ class Oscar_samba{
         if(!file_exists($dir)){
             mkdir($dir,0777,TRUE);
             chmod($dir,0777);
+        }else{
+            echo "Impossible de creer le repertoire $dir<br/>";
         }
 
                 //Recherche du chemin absolue
