@@ -135,7 +135,7 @@ class Oscar_samba{
             $options    = " -o ".implode(",", $option)." ".$params;
 
             //La commande finale devient
-            $cmd    =   "/usr/bin/smbmount ".$this->_share." ".$this->_pmount." ".$options;
+            $cmd    =   "sudo /usr/bin/smbmount ".$this->_share." ".$this->_pmount." ".$options;
 
             try{
                 //Execution de la commande de montage
@@ -175,7 +175,7 @@ class Oscar_samba{
     * @return boolean TRUE si pas de probleme , FALSE dans le cas contraire */
     public function umount(){
 
-        $cmd    =   "smbumount ".$this->_pmount;
+        $cmd    =   "sudo umount ".$this->_pmount;
 
         try{
             //Execution
