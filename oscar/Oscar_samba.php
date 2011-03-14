@@ -133,6 +133,10 @@ class Oscar_samba{
                 if( !$this->_shell_execute($cmd) ){
                     throw new Exception($this->_stdErr['exec']);
                 }
+                //Test le retour de la commande qui doit tre vide
+                if( !empty($this->_stdOut) ){
+                    throw new Exception($this->_stdErr['exec']);
+                }
 
             }  catch (Exception $e){
                 echo "Une erreur est survenue au montage : ".$e->getMessage().PHP_EOL;
@@ -161,6 +165,10 @@ class Oscar_samba{
         try{
             //Execution
             if( !$this->_shell_execute($cmd) ){
+                throw new Exception($this->_stdErr['exec']);
+            }
+            //Test le retour de la commande qui doit tre vide
+            if( !empty($this->_stdOut) ){
                 throw new Exception($this->_stdErr['exec']);
             }
         }  catch (Exception $e){
