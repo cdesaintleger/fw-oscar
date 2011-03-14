@@ -27,6 +27,8 @@ class Oscar_samba{
 
     private $_no_password   =   null;
 
+    public $_cmd    =   "";
+
 
 
     /** * Constructeur
@@ -43,6 +45,8 @@ class Oscar_samba{
     public function __construct( $share, $pmount, $options = array() ){
 
         try {
+            $this->_stdErr['object']    =   "";
+            $this->_stdErr['exec']    =   "";
             
             //dÃ©finition des attributd de l'objet
             $this->_share   =   $share;
@@ -80,7 +84,12 @@ class Oscar_samba{
             
         }  catch (Exception $e){
 
-            echo "Une erreur est survenue : ".$e->getMessage().PHP_EOL;
+            $err    =   $e->getMessage();
+            if(is_array($err) ){
+                $err    =   implode(PHP_EOL."--->", $err);
+            }
+
+            echo "Une erreur est survenue : ".$err.PHP_EOL;
             return FALSE;
 
         }
@@ -139,7 +148,13 @@ class Oscar_samba{
                 }
 
             }  catch (Exception $e){
-                echo "Une erreur est survenue au montage : ".$e->getMessage().PHP_EOL;
+
+                $err    =   $e->getMessage();
+                if(is_array($err) ){
+                    $err    =   implode(PHP_EOL."--->", $err);
+                }
+                
+                echo "Une erreur est survenue au montage : ".$err.PHP_EOL;
                 return false;
             }
 
@@ -172,7 +187,13 @@ class Oscar_samba{
                 throw new Exception($this->_stdErr['exec']);
             }
         }  catch (Exception $e){
-            echo "Une erreur est survenue au dÃ©montage : ".$e->getMessage().PHP_EOL;
+
+            $err    =   $e->getMessage();
+            if(is_array($err) ){
+                $err    =   implode(PHP_EOL."--->", $err);
+            }
+
+            echo "Une erreur est survenue au dŽmontage : ".$err.PHP_EOL;
             return FALSE;
         }
 
@@ -201,7 +222,13 @@ class Oscar_samba{
                 throw new Exception($this->_stdErr['exec']);
             }
         }  catch (Exception $e){
-            echo "Une erreur est survenue : ".$e->getMessage().PHP_EOL;
+
+            $err    =   $e->getMessage();
+            if(is_array($err) ){
+                $err    =   implode(PHP_EOL."--->", $err);
+            }
+
+            echo "Une erreur est survenue : ".$err.PHP_EOL;
             return false;
         }
 
@@ -219,6 +246,9 @@ class Oscar_samba{
             1   =>  array('pipe','w'),
             2   =>  array('pipe','w')
         );
+
+        //Enregistrement de la commande
+        $this->_cmd =   $cmd;
 
         /* Ouverture process */
         $smb    = proc_open($cmd, $descripteurs, $pipes);
@@ -238,7 +268,7 @@ class Oscar_samba{
 
         //En cas d'echec de la fermeture du processus
         if( $return_value == -1 ){
-            $this->_stdErr["exec"]    =   "Erreur Ã  la fermeture du process ".PHP_EOL;
+            $this->_stdErr["exec"]    =   "Erreur ˆ la fermeture du process ".PHP_EOL;
             return FALSE;
         }
 
