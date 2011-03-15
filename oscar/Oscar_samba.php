@@ -125,14 +125,14 @@ class Oscar_samba{
             //Gestion des paramétres et options à utiliser
             $params =   "";
             if( $this->_no_password ){
-                $params = implode (" ",$this->_params);
+                $params = trim(implode (" ",$this->_params));
             }
 
             //Transforme le tableau de paramétres en une chaine sécurisé : option=value,option2=value
             foreach( $this->_options AS $key => &$value ){
                 $option[] = $key."=".escapeshellarg($value);
             }
-            $options    = " -o ".implode(",", $option)." ".$params.",nosetuids,rw,nounix,nouser_xattr,noserverino,noperm,file_mode=0777,dir_mode=0777";
+            $options    = " -o ".implode(",", $option).",nosetuids,rw,nounix,nouser_xattr,noserverino,noperm,file_mode=0777,dir_mode=0777 ".$params;
 
             //La commande finale devient
             $cmd    =   "sudo /usr/bin/smbmount ".$this->_share." ".$this->_pmount." ".$options;
@@ -144,17 +144,22 @@ class Oscar_samba{
                 }
                 //Test le retour de la commande qui doit �tre vide
                 if( !empty($this->_stdOut) ){
-                    throw new Exception($this->_stdErr['exec']);
+                    throw new Exception($this->_stdOut);
                 }
 
             }  catch (Exception $e){
 
                 $err    =   $e->getMessage();
                 if(is_array($err) ){
-                    $err    =   implode(PHP_EOL."--->", $err);
+                    $err    =   implode(PHP_EOL."E--->", $err);
+                }
+                $out    =   $this->_stdOut;
+                if(is_array($out) ){
+                    $out    =   implode(PHP_EOL."O--->", $out);
                 }
                 
-                echo "Une erreur est survenue au montage : ".$err.PHP_EOL;
+                echo "Une erreur est survenue au montage : ".$err.$out.PHP_EOL;
+                
                 return false;
             }
 
@@ -184,7 +189,7 @@ class Oscar_samba{
             }
             //Test le retour de la commande qui doit �tre vide
             if( !empty($this->_stdOut) ){
-                throw new Exception($this->_stdErr['exec']);
+                throw new Exception($this->_stdOut);
             }
         }  catch (Exception $e){
 
@@ -257,8 +262,8 @@ class Oscar_samba{
         $this->_stdOut    =   stream_get_contents($pipes[1]);
 
         /* Recuération des erreurs */
-        $this->_stdErr["shell"]     =   null;
-        $this->_stdErr["shell"]     =  stream_get_contents($pipes[2]);
+        $this->_stdErr["exec"]     =   null;
+        $this->_stdErr["exec"]     =  stream_get_contents($pipes[2]);
 
         /* Fermeture des descripteurs */
         fclose( $pipes[0] );
@@ -273,7 +278,7 @@ class Oscar_samba{
         }
 
         //En cas d'erreur pendant l'execution de la commande
-        if(!empty( $this->_stdErr["shell"] )){
+        if(!empty( $this->_stdErr["exec"] )){
             return FALSE;
         }else{
             return TRUE;
