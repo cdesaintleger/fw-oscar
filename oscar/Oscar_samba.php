@@ -132,7 +132,7 @@ class Oscar_samba{
             foreach( $this->_options AS $key => &$value ){
                 $option[] = $key."=".escapeshellarg($value);
             }
-            $options    = " -o ".implode(",", $option)." ".$params.",nosetuids,rw,nounix,nouser_xattr,noserverino,noperm";
+            $options    = " -o ".implode(",", $option)." ".$params.",nosetuids,rw,nounix,nouser_xattr,noserverino,noperm,file_mode=0777,dir_mode=0777";
 
             //La commande finale devient
             $cmd    =   "sudo /usr/bin/smbmount ".$this->_share." ".$this->_pmount." ".$options;
