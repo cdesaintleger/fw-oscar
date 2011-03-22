@@ -142,7 +142,7 @@ class Oscar_samba{
                 if( !$this->_shell_execute($cmd) ){
                     throw new Exception($this->_stdErr['exec']);
                 }
-                //Test le retour de la commande qui doit tre vide
+                //Test le retour de la commande qui doit ï¿½tre vide
                 if( !empty($this->_stdOut) ){
                     throw new Exception($this->_stdOut);
                 }
@@ -187,7 +187,7 @@ class Oscar_samba{
             if( !$this->_shell_execute($cmd) ){
                 throw new Exception($this->_stdErr['exec']);
             }
-            //Test le retour de la commande qui doit tre vide
+            //Test le retour de la commande qui doit ï¿½tre vide
             if( !empty($this->_stdOut) ){
                 throw new Exception($this->_stdOut);
             }
@@ -198,7 +198,7 @@ class Oscar_samba{
                 $err    =   implode(PHP_EOL."--->", $err);
             }
 
-            echo "Une erreur est survenue au dŽmontage : ".$err.PHP_EOL;
+            echo "Une erreur est survenue au dï¿½montage : ".$err.PHP_EOL;
             return FALSE;
         }
 
@@ -273,7 +273,7 @@ class Oscar_samba{
 
         //En cas d'echec de la fermeture du processus
         if( $return_value == -1 ){
-            $this->_stdErr["exec"]    =   "Erreur ˆ la fermeture du process ".PHP_EOL;
+            $this->_stdErr["exec"]    =   "Erreur ï¿½ la fermeture du process ".PHP_EOL;
             return FALSE;
         }
 
@@ -317,15 +317,15 @@ class Oscar_samba{
         /*
          * VÃ©rifie le propriÃ©taire du point de montage
          */
-         $pwuid =   posix_getpwuid(fileowner($absolute_dir));
-         $whoami    =   exec("whoami");
-
-         if( $pwuid['name'] != $whoami ){
-
-            $this->_stdErr['object']    =   "Le point de montage doit appartenir Ã  l'utilisateur courant : ".$whoami;
-            return FALSE;
-
-         }
+//         $pwuid =   posix_getpwuid(fileowner($absolute_dir));
+//         $whoami    =   exec("whoami");
+//
+//         if( $pwuid['name'] != $whoami ){
+//
+//            $this->_stdErr['object']    =   "Le point de montage doit appartenir Ã  l'utilisateur courant : ".$whoami;
+//            return FALSE;
+//
+//         }
          
          /*
           * DÃ©finition du point de montage
