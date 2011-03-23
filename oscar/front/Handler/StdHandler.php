@@ -33,6 +33,8 @@ class StdHandler implements ierrorObserver{
             $err    =   implode("<br/>",$err);
 
         }
+
+        error_log($err);
 		
 
         echo $err."<br>";

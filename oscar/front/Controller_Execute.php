@@ -37,7 +37,7 @@ class Oscar_Front_Controller_Execute extends Oscar_Front_controller{
                 
                 if( $patharequire   !=  false ){
                     
-                    require_once $patharequire.$controllerName.'.php';
+                    include_once $patharequire.$controllerName.'.php';
 
                     /*
                      * Définition du répertoire par défaut des vues
