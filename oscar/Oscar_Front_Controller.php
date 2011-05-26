@@ -978,7 +978,7 @@ class Oscar_Front_Controller implements Controller_Interface{
      * Lancement de Oscar une sorte de chef d'orchestre
      */
     public function run(){
-
+        
         //Definition de l'autoloader objet
         //spl_autoload_register(array('Oscar_Front_Controller','_oscar_autoload'));
         spl_autoload_register('Oscar_Front_Controller::_oscar_autoload');

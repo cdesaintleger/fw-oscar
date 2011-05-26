@@ -76,7 +76,7 @@ class Oscar_Morm extends MongoCollection{
 	}
 
 
-       /*
+    /*
      * Retourne la collection courante
      */
     public function getCollection(){
