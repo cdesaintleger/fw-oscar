@@ -113,6 +113,17 @@ class Oscar_samba{
     public function get_stdErr(){
         return $this->_stdErr;
     }
+    
+    /*
+     * Retourne le point de montage utilisé
+     */
+    public function get_pMount(){
+        if($this->_ismounted   ==   TRUE){
+            return $this->_pmount;
+        }else{
+            return false;
+        }
+    }
 
     /** * Monter un partage reseau
     * @throws Exception
