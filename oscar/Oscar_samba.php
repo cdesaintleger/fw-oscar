@@ -118,11 +118,7 @@ class Oscar_samba{
      * Retourne le point de montage utilisé
      */
     public function get_pMount(){
-        if($this->_ismounted   ==   TRUE){
-            return $this->_pmount;
-        }else{
-            return false;
-        }
+        return $this->_pmount;
     }
 
     /** * Monter un partage reseau
