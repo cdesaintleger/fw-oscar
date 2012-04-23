@@ -143,6 +143,8 @@ class Oscar_samba{
 
             //La commande finale devient
             $cmd    =   "sudo /usr/bin/smbmount ".$this->_share." ".$this->_pmount." ".$options;
+            error_log($cmd);
+
 
             try{
                 //Execution de la commande de montage
