@@ -156,7 +156,7 @@ class Oscar_Xml{
 				$this->domInstance->load($fichierXML);
 				
 		}else{
-                    echo "Ooups ... the file does not exist !";
+                    error_log("Ooups ... the file does not exist !: ".$fichierXML);
                 }
 	}
 	
