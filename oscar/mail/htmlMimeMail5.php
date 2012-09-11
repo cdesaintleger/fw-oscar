@@ -148,7 +148,7 @@ class htmlMimeMail5
         $this->smtp_params['user'] = '';
         $this->smtp_params['pass'] = '';
 		**/
-        $this->smtp_params['host'] = '10.0.0.52';
+        $this->smtp_params['host'] = '10.0.0.8';
         $this->smtp_params['port'] = 25;
         $this->smtp_params['helo'] = $helo;
         $this->smtp_params['auth'] = FALSE;
